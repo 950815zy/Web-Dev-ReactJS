@@ -1,0 +1,130 @@
+.outer{
+    background-image:linear-gradient(#7bb7f8ee,white);
+}
+
+
+.logo{
+    margin-left:2%;
+    margin-top: 0em;
+    margin-right: 15%;
+}
+.input{
+    width: 50%;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    margin-right: 8.5%;
+    height: 50%;
+} 
+
+.outer p{
+    float: right;
+    margin-top: 3em;
+}
+
+.head {
+    float: right;
+    margin-right: 1em;
+    margin-top: 1em;
+    margin-left:1em;
+}
+
+.searchLabel{
+    font-size: 0.9em;
+    margin-left: 1em;
+    margin-bottom: 0em;
+}
+.button1 {
+    background-color: grey;
+    border: none;
+    color: white;
+    height: 19px;
+    width: 31%;
+    font-size: 0.7em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 0.5%;
+    cursor: pointer;
+    font-weight: bold;
+
+}
+
+.button2 {
+    background-color: white;
+    border: none;
+    height: 18px;
+    width: 48.5%;
+    font-size: 0.7em;
+    color: black;
+    /* padding: 0.2% 2%;
+    margin-top: 0.3%; */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: bold;
+    border: 1px solid rgb(187, 178, 178);
+
+}
+
+.title {
+    padding: 0.1em 0em 0.4em 2%;
+    background-color: rgb(240, 235, 235);
+    height: 5%;
+    font-size: 0.7em;
+    width: 97%;
+    margin: 0.08em 0em 0.1em 0em;
+    font-weight: 600;
+    text-align: 20%;
+}
+
+.smallFont {
+    font-size: 0.7em;
+    vertical-align: middle;
+    padding: 0.1em 0em 0.1em 2%;
+    width: 98%;
+    margin: 0.1em 0.1em 0.1em 0em;
+}
+
+.smallFont input {
+    width: 17%;
+    height: 0.6em;
+}
+
+.lefttable {
+    width: 11.9em;
+    float: left;
+}
+
+.righttable {
+    float: right;
+
+}
+
+.fan{
+    margin-left: 20%;
+    margin-right: 2%;
+    padding: 0% 0% 0% 0%;
+    
+}
+
+.firstPart{
+    font-size: 12px;
+    text-align: center;
+    color: rgb(27, 81, 218);
+    font-weight: bold;
+}
+.secondPart{
+    color: rgb(90, 85, 85);
+    background-color: rgb(236, 231, 231);
+    font-size: 12px;
+    text-align: center;
+    padding: 2% 2% 2% 2%;
+}
+
+.col{
+   border: 1px solid rgb(187, 178, 178);
+    padding-left: 1px;
+    padding-right: 3px;
+}
+

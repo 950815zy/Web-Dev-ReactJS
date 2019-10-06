@@ -1,0 +1,26 @@
+.search {
+  margin: auto;
+  text-align: center;
+  box-shadow: 0 2px 3px #ccc;
+  border: 1px solid #eee;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+img {
+    margin-top: 10%;
+    margin-left: 40%;
+    margin-right: 40%;
+  }
+
+h2{
+font-size: 0.8em;
+color: grey;
+font-weight: bold;
+margin-bottom: 2em;
+}
+
+
+.inline select {
+  display: inline-block;
+}
