@@ -6,6 +6,8 @@ import Auth from './Container/Auth/Auth';
 import Signup from './Container/Signup/Signup'
 import searchPage from './Container/SearchPage/searchPage'
 import product from './Container/ProductList/product'
+import productSummary from './Container/ProductSummary/productSummary'
+import Compare from './Container/Compare/Compare'
 
 class App extends Component {
   render() {
@@ -14,7 +16,10 @@ class App extends Component {
       <Route path="/auth" component={Auth} />
       <Route path="/signup" component={Signup} />
       <Route path="/search" component={searchPage} />
-      <Route path="/product" component={product} />
+      <Route path="/product/:selection/:searchVal" component={product} />
+      {/* <Route path="/product" component={product} /> */}
+      <Route path="/productSummary/:selection/:searchVal/:model" component={productSummary} />
+      <Route path="/compare" component={Compare}></Route>
       <Redirect to="/auth" />
     </Switch>  
     );  

@@ -1,0 +1,94 @@
+.outer{
+    background-image:linear-gradient(#7bb7f8ee,white);
+    border-bottom: 1px solid rgb(172, 170, 170);   
+}
+
+
+.logo{
+    margin-left:2%;
+    margin-top: 0em;
+    margin-right: 8%;
+}
+.input{
+    width: 50%;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    margin-right: 5%;
+    margin-left: 10px;
+    height: 50%;
+} 
+
+.outer p{
+    float: right;
+    margin-top: 3em;
+}
+
+.head {
+    float: right;
+    margin-right: 10%;
+    margin-top: 25px;
+    margin-left:10px;
+}
+
+.fan{
+    margin: 0 0 0 0;
+}
+
+.secondPart{
+    display: flex;
+}
+
+.title{
+    padding: 8px 5px 5px 10px;
+    color: rgb(35, 67, 148);
+    font-weight: 600;
+}
+.title2{
+    padding: 8px 5px 5px 0px;
+    color: rgb(35, 67, 148);
+    font-weight: 600;
+}
+
+.thirdPart {
+    height: 1.5em;
+    display: flex;
+}
+.thirdPart button {
+    font-size: 10px;
+    height: 98%;
+    background-color: rgb(219, 215, 215);
+}
+
+.fourthPart{
+    margin-top: 8px;
+}
+
+.container{
+    margin-left: 10px !important;
+}
+
+.table1 tr{
+    border-bottom: 1px solid rgb(235, 232, 232);
+    border-top: 1px solid rgb(235, 232, 232);
+    margin: 0 0 0 0 ;
+}
+
+td {
+    font-size: 13px;
+    padding: 5px 0px 5px 5px !important;
+    width: 100%;
+    white-space: nowrap;
+}
+
+th {
+    font-size: 13px;
+    padding: 5px 0 5px 0 !important;
+    border-bottom: 1px solid rgb(102, 100, 100);
+    border-top: 1px solid rgb(102, 100, 100);
+    width: 100%;
+
+}
+
+td:nth-child(odd){
+    background-color: rgb(235, 232, 232);
+  }

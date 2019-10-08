@@ -140,12 +140,12 @@ class Signup extends Component {
         }
     return (
     <html style={{backgroundImage:"linear-gradient(#7bb7f8ee, #ffffff)"}}>
-      <div className={classes.Auth}>
+      <div className={classes.signup}>
         {/* {successMessage} */}
         {errorMessage}
         {authRedirect}
         <img className={classes.logo} src={logo} width="20%" height="15%"/>
-        <h2 >Build Product Selection Platform</h2>
+        <p >Build Product Selection Platform</p>
         <form onSubmit={this.submitHandler}>
           {form}
           <Button btnType="Success">

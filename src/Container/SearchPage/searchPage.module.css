@@ -1,9 +1,8 @@
 .search {
   margin: auto;
   text-align: center;
-  box-shadow: 0 2px 3px #ccc;
-  border: 1px solid #eee;
-  padding: 10px;
+  padding-top: 100px;
+  padding-bottom: 100px;
   box-sizing: border-box;
 }
 
@@ -13,14 +12,27 @@ img {
     margin-right: 40%;
   }
 
-h2{
-font-size: 0.8em;
+p{
+font-size: 14px;
 color: grey;
 font-weight: bold;
 margin-bottom: 2em;
 }
 
 
-.inline select {
-  display: inline-block;
+.inline  {
+  display: flex;
+  margin-left: 13%;
+  font-size: 13px;
+}
+
+input {
+  width: 97%;
+  border: none;
+}
+
+.input{
+  border: 1px solid rgb(82, 63, 63);
+  width: 65%;
+  float: right;
 }
