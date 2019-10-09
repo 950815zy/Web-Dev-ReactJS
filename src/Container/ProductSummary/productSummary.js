@@ -17,7 +17,7 @@ class ProductSummary extends Component {
 
     componentDidMount() {
         console.log(localStorage);
-        let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra2siLCJleHAiOjE1NzA1ODEzMTQsImlhdCI6MTU3MDU0NTMxNH0.SlPoRQVUxqJsf7OkLfQEMSqb5MBZOMm1LglDM9qYD5r_Lt3bv58twpVLV1tw2PIDv1dbXjS4_Wp96mPjdugo0g";
+        let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra2siLCJleHAiOjE1NzA2NjY0MzMsImlhdCI6MTU3MDYzMDQzM30.Bv9Rd0VueeTxUEhbSxrQiq4KLKlSKKnEj46w37ukQ9LpFUIC7s29Jw9Q-jTfglMOj9bPg1sZBjF8Ma6T0n0eiA";
         let pid = this.props.match.params.model;
         let url = `/user/getProd/${pid}`;
         axios({

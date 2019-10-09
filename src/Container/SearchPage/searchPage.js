@@ -40,6 +40,7 @@ class searchPage extends Component {
                 <div className={classes.input}>
                     <input type="text" placeholder="search..." onChange={ this.handleChange } />
                     <Link to={`/product/${this.state.selection}/${this.state.searchValue}`}>
+
                     <IoMdSearch /></Link>
                     
 

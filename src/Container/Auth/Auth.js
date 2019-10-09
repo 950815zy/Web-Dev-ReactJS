@@ -4,8 +4,11 @@ import * as actions from '../../Store/actions/index';
 import Input from '../../Components/Input/Input';
 import Button from '../../Components/Button/Button';
 import Spinner from '../../Components/Spinner/Spinner';
-import classes from './Auth.css';
+import classes from './Auth.module.css';
 import logo from './logo.png';
+import { Link } from 'react-router-dom';
+
+import { IoIosReturnRight } from 'react-icons/io';
 
 class Auth extends Component {
     state = {
@@ -141,14 +144,19 @@ class Auth extends Component {
             <div className={classes.Auth}>
                 {/* {authRedirect} */}
                 {errorMessage}
-                <Button className={classes.signup}
-                    clicked={this.switchAuthModeHandler}
-                    btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button><br/>
                 <img className={classes.logo} src={logo} width="20%" height="15%"/>
-                <h2 >Build Product Selection Platform</h2>
+                <p >Build Product Selection Platform</p>
                 <form onSubmit={this.submitHandler}>
                     {form}
-                    <Button btnType="Success">Log In</Button>
+                    <div>
+                        <Link to ="search">
+                        <button style={{ float: "right"}} btnType="Success">Log In</button></Link>
+                        <button style={{float: "right"}}
+                        clicked={this.switchAuthModeHandler}
+                        btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</button>
+                    </div>
+
+                    
                 </form> <br/>
             </div>
             </html>

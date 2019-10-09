@@ -42,18 +42,25 @@ class Product extends Component {
     
     state = {
             data: [],
+            filteredData: [],
             filter: [{title: 'Airflow(CFM)', defaultValue:[3000,7000], valueRange:[2000,10000]},
                     {title: 'Max Power(W)', defaultValue:[20,80], valueRange:[0,100]},
                     {title: 'Sound at max speed(dBA)', defaultValue:[20,80], valueRange:[0,100]},
                     {title: 'Fan sweep diameter(in)', defaultValue:[20,80], valueRange:[0,100]},
                     {title: 'Height(in)', defaultValue:[20,80], valueRange:[0,100]}],
+            filter_copy: [{title: 'Airflow(CFM)', defaultValue:[3000,7000], valueRange:[2000,10000]},
+                            {title: 'Max Power(W)', defaultValue:[20,80], valueRange:[0,100]},
+                            {title: 'Sound at max speed(dBA)', defaultValue:[20,80], valueRange:[0,100]},
+                            {title: 'Fan sweep diameter(in)', defaultValue:[20,80], valueRange:[0,100]},
+                            {title: 'Height(in)', defaultValue:[20,80], valueRange:[0,100]}],
             filter2: [{title:'Firm', defaultValue:[0,10], valueRange:[0,10]},
-                        {title:'Global', defaultValue:[0,1500], valueRange:[0,1500]}],    
-            checked : []
+                        {title:'Global', defaultValue:[0,1500], valueRange:[0,1500]}],  
+            checkedBoxes: [],
+  
         };
 
     componentDidMount() {
-        let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra2siLCJleHAiOjE1NzA1ODEzMTQsImlhdCI6MTU3MDU0NTMxNH0.SlPoRQVUxqJsf7OkLfQEMSqb5MBZOMm1LglDM9qYD5r_Lt3bv58twpVLV1tw2PIDv1dbXjS4_Wp96mPjdugo0g";
+        let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra2siLCJleHAiOjE1NzA2NjY0MzMsImlhdCI6MTU3MDYzMDQzM30.Bv9Rd0VueeTxUEhbSxrQiq4KLKlSKKnEj46w37ukQ9LpFUIC7s29Jw9Q-jTfglMOj9bPg1sZBjF8Ma6T0n0eiA";
         let url = "/user/getAllProd";
         axios({
             url:url,
@@ -63,21 +70,24 @@ class Product extends Component {
                 Authorization: token
             }
         })
-        .then((response) => {this.setState({data: response.data}); console.log(response);})
+        .then((response) => {this.setState({data: response.data});this.setState({filteredData: response.data}); console.log(response);})
         .catch((error) => {
             console.log(error)});
     }
 
-    handleChange = (value) => {
-        this.setState({value:this.state.filter.defaulValue});
-        // console.log(event);
+    handleChange = (value, index) => {
+        const {filter} = this.state;
+        this.setState({
+            filter: [...filter.slice(0, index), {...filter[index], defaultValue: value}, ...filter.slice(index + 1)]
+        })
       }
 
     save = () => {
         // this.setState({filter : filter_copy});
         // this.setState({data: data_copy});
-        console.log(this.state.data)
-        this.setState({data : this.state.data.filter(el=>
+        console.log(this.state.data);
+        const data = [ ...this.state.data ];
+        const filteredData = data.filter(el=>
             el.airflow>=this.state.filter[0].defaultValue[0] &&
             el.airflow<=this.state.filter[0].defaultValue[1] &&
             el.powerMax>=this.state.filter[1].defaultValue[0] &&
@@ -86,12 +96,31 @@ class Product extends Component {
             el.soundMaxSpeed<=this.state.filter[2].defaultValue[1] &&
             el.fanSweep>=this.state.filter[3].defaultValue[0] &&
             el.fanSweep<=this.state.filter[3].defaultValue[1] 
-            )})
+            );
+        // console.log(filteredData);
+        this.setState({filteredData})
     }
 
-    handleCheckClick = () => {
-        this.setState({ checked: !this.state.checked });
+    clear = () => {
+        const copy_filter = [...this.state.filter_copy];
+        this.state.filteredData = this.state.data;
+        this.setState({filter : copy_filter});
+        console.log(this.state.filter[0].defaultValue)
+    }
+
+    handleCheckbox = (e, s) => {
+        const checkedBox = [...this.state.checkedBoxes];
+        if(e.target.checked) {
+            checkedBox.push(s)
+        } else {
+          const index = checkedBox.findIndex((ch) => ch.manufacturer === s.manufacturer);
+          checkedBox.splice(index, 1);
+        }
+        this.setState({checkedBoxes:checkedBox});
+
       }
+    
+    
 
     render(){
     return(
@@ -107,14 +136,14 @@ class Product extends Component {
                 <div className={classes.lefttable}>
                     <label className={classes.searchLabel}>Search: </label>
                     <button className={classes.button1} onClick={this.save}>Save</button>
-                    <button className={classes.button1}>Clear</button><br/>
+                    <button className={classes.button1} onClick={this.clear}>Clear</button><br/>
                     <button className={classes.button2} >Product</button>  
                     <button className={classes.button2} >Project</button>  
                     <p className={classes.title}>  Product Type</p>
                     <p className={classes.smallFont}>Model year: <input type="text"/> - <input type="text"/></p>
                     <p className={classes.title}>Technical Specification</p>
                     
-                    {this.state.filter.map(link=>(
+                    {this.state.filter.map((link, index)=>(
                         <div>
                             <p className={classes.smallFont}>{link.title}</p>
                             <div className={classes.selector}>
@@ -126,8 +155,8 @@ class Product extends Component {
                                     renderThumb={Thumb}
                                     min={link.valueRange[0]}
                                     max={link.valueRange[1]}
-                                    onChange={this.handleChange}
-                                    value={link.defaulValue}
+                                    onChange={(value) => this.handleChange(value, index)}
+                                    value={link.defaultValue}
                                     /></div>
                                 <input className={classes.maxvalue} type="text" value={link.defaultValue[1]}/>
 
@@ -164,7 +193,7 @@ class Product extends Component {
 
                     <Container className="container">
                         <Row>
-                            {this.state.data.map(link=>{
+                            {this.state.filteredData.map(link=>{
                             return(
                             <Col xs={3} className={classes.column}>
                                 <div  key={link.manufacturer} id='cardItem' >
@@ -189,13 +218,19 @@ class Product extends Component {
                                         <span>{link.firm} firm / {link.glob} global</span>
                                     </div>
                                     <div className={classes.fourthPart}>
-                                        <input type="checkbox" /> 
+                                        <input type="checkbox"
+                                            checked={this.state.checkedBoxes.find((ch)=>ch.manufacturer === link.manufacturer)}
+                                            onChange={(e) => this.handleCheckbox(e,link)}
+                                            /> 
+                                            
                                         <span>Compare</span>
                                     </div>
                                 </div>    
                             </Col>)})} 
                         </Row>
                     </Container>
+                    <Link to={{pathname:'/compare', state: this.state.checkedBoxes}}>
+                    <button style={{float:"right"}}>Compare</button></Link>
                 </div>
             </div>
         </div>
