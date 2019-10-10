@@ -7,6 +7,7 @@ import Spinner from '../../Components/Spinner/Spinner';
 import classes from './Auth.module.css';
 import logo from './logo.png';
 import { Link } from 'react-router-dom';
+import { FaRegUser } from "react-icons/fa";
 
 import { IoIosReturnRight } from 'react-icons/io';
 
@@ -142,18 +143,19 @@ class Auth extends Component {
         return (
             <html style={{backgroundImage:"linear-gradient(#7bb7f8ee, #ffffff)"}}>
             <div className={classes.Auth}>
+            <span style={{float: "right", border:"0px",marginRight: "10%", fontSize:"16px", fondWeight:"600", color: "grey"}}
+                onClick={this.switchAuthModeHandler}
+                btnType="Danger">{this.state.isSignup ? 'Sign in' : 'Sign up'}</span>
                 {/* {authRedirect} */}
                 {errorMessage}
-                <img className={classes.logo} src={logo} width="20%" height="15%"/>
+                <img className={classes.logo} src={logo} width="25%" height="18%"/>
                 <p >Build Product Selection Platform</p>
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <div>
                         <Link to ="search">
                         <button style={{ float: "right"}} btnType="Success">Log In</button></Link>
-                        <button style={{float: "right"}}
-                        clicked={this.switchAuthModeHandler}
-                        btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</button>
+                        
                     </div>
 
                     

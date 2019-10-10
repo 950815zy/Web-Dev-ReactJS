@@ -1,6 +1,7 @@
 .outer{
     background-image:linear-gradient(#7bb7f8ee,white);
-    border-bottom: 1px solid rgb(172, 170, 170);   
+    border-bottom: 1px solid rgb(172, 170, 170);  
+    display: flex; 
 }
 
 
@@ -13,7 +14,7 @@
     width: 50%;
     margin-bottom: 1em;
     margin-top: 1em;
-    margin-right: 5%;
+    margin-right: 10%;
     margin-left: 10px;
     height: 50%;
 } 
@@ -50,8 +51,9 @@
 }
 
 .thirdPart {
-    height: 1.5em;
+    height: 1.6em;
     display: flex;
+    font-size: 14px;
 }
 .thirdPart button {
     font-size: 10px;
@@ -68,8 +70,7 @@
 }
 
 .table1 tr{
-    border-bottom: 1px solid rgb(235, 232, 232);
-    border-top: 1px solid rgb(235, 232, 232);
+
     margin: 0 0 0 0 ;
 }
 
@@ -78,15 +79,19 @@ td {
     padding: 5px 0px 5px 5px !important;
     width: 100%;
     white-space: nowrap;
+    border: 0px !important;
 }
 
 th {
     font-size: 13px;
     padding: 5px 0 5px 0 !important;
-    border-bottom: 1px solid rgb(102, 100, 100);
-    border-top: 1px solid rgb(102, 100, 100);
+    white-space: nowrap;
     width: 100%;
 
+}
+
+tr{
+    font-size: 14px;
 }
 
 td:nth-child(odd){

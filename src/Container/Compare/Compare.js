@@ -19,8 +19,8 @@ class Compare extends Component {
                 <div className={classes.outer}>
                     <img  className = {classes.logo} src={logo} width="10%" height="5%" />
                     <input className = {classes.input} type="text" placeholder="search..."/>
-                         Project
-                    <img className = {classes.head} src={images} width="4%" height="1.5%" />
+                    <span style={{marginTop:"20px"}}>Projects</span>
+                    <img style={{marginLeft:"10px",marginTop:"10px",marginRight:"10px"}} src={images} width="5%" height="3%" />
                 </div>
                 
                 <div>
@@ -54,7 +54,6 @@ class Compare extends Component {
                         <Col xs={3}  className={classes.content}>
                             <th >
                             <img className={classes.fan}  src={require(`../ProductList/${link.manufacturer}.jpg`)} width="80px" height="80px"/>
-
                             </th>
                             <tr>&nbsp;</tr>
                             <tr>{link.manufacturer}</tr>
@@ -68,9 +67,9 @@ class Compare extends Component {
                             <tr>{link.modelYear}</tr>
                             <tr>&nbsp;</tr>
                             <tr>{link.airflow}</tr>
-                            <tr><span style={{paddingRight:"1em", backgroundColor: "grey", marginRight: "1em"}}>Min</span> {link.powerMin} <span style={{paddingRight:"1em", backgroundColor: "grey", marginLeft: "1em"}}>Max</span> {link.powerMax}</tr>
-                            <tr><span style={{paddingRight:"1em", backgroundColor: "grey", marginRight: "1em"}}>Min</span> {link.pvMin} <span style={{paddingRight:"1em", backgroundColor: "grey", marginLeft: "1em"}}>Max</span> {link.pvMax}</tr>
-                            <tr><span style={{paddingRight:"1em", backgroundColor: "grey", marginRight: "1em"}}>Min</span> {link.rpmMin} <span style={{paddingRight:"1em", backgroundColor: "grey", marginLeft: "1em"}}>Max</span> {link.rpmMax}</tr>
+                            <tr><span style={{paddingRight:"1em",backgroundColor: "rgb(236, 231, 231)", marginRight: "1em"}}>Min</span> {link.powerMin} <span style={{paddingRight:"1em", backgroundColor: "rgb(236, 231, 231)", marginLeft: "1em"}}>Max</span> {link.powerMax}</tr>
+                            <tr><span style={{paddingRight:"1em", backgroundColor: "rgb(236, 231, 231)", marginRight: "1em"}}>Min</span> {link.pvMin} <span style={{paddingRight:"1em", backgroundColor: "rgb(236, 231, 231)", marginLeft: "1em"}}>Max</span> {link.pvMax}</tr>
+                            <tr><span style={{paddingRight:"1em", backgroundColor: "rgb(236, 231, 231)", marginRight: "1em"}}>Min</span> {link.rpmMin} <span style={{paddingRight:"1em", backgroundColor: "rgb(236, 231, 231)", marginLeft: "1em"}}>Max</span> {link.rpmMax}</tr>
 
                         </Col>
                             )})}    

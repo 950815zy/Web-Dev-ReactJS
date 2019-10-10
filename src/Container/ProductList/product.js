@@ -56,11 +56,13 @@ class Product extends Component {
             filter2: [{title:'Firm', defaultValue:[0,10], valueRange:[0,10]},
                         {title:'Global', defaultValue:[0,1500], valueRange:[0,1500]}],  
             checkedBoxes: [],
+            ModelYearMin : '',
+            ModelYearMax : '',
   
         };
 
     componentDidMount() {
-        let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra2siLCJleHAiOjE1NzA2NjY0MzMsImlhdCI6MTU3MDYzMDQzM30.Bv9Rd0VueeTxUEhbSxrQiq4KLKlSKKnEj46w37ukQ9LpFUIC7s29Jw9Q-jTfglMOj9bPg1sZBjF8Ma6T0n0eiA";
+        let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra2siLCJleHAiOjE1NzA3NTI0ODIsImlhdCI6MTU3MDcxNjQ4Mn0.pedJwWC9N2eM-8jHC9hS7T0HsE3KmkfJKV8bm-8FyxY1txDOhIhdl_FL-HGVVbLagqBWy4lOOnQ5jIAG8QGo0g";
         let url = "/user/getAllProd";
         axios({
             url:url,
@@ -95,7 +97,9 @@ class Product extends Component {
             el.soundMaxSpeed>=this.state.filter[2].defaultValue[0] &&
             el.soundMaxSpeed<=this.state.filter[2].defaultValue[1] &&
             el.fanSweep>=this.state.filter[3].defaultValue[0] &&
-            el.fanSweep<=this.state.filter[3].defaultValue[1] 
+            el.fanSweep<=this.state.filter[3].defaultValue[1] &&
+            el.modelYear>=this.state.ModelYearMin &&
+            el.modelYear<=this.state.ModelYearMax
             );
         // console.log(filteredData);
         this.setState({filteredData})
@@ -105,7 +109,17 @@ class Product extends Component {
         const copy_filter = [...this.state.filter_copy];
         this.state.filteredData = this.state.data;
         this.setState({filter : copy_filter});
+        this.setState({ModelYearMin:''});
+        this.setState({ModelYearMax:''});
         console.log(this.state.filter[0].defaultValue)
+    }
+
+    handleModelYearMin = (e) => {
+        this.setState({ModelYearMin:e.target.value});
+    }
+
+    handleModelYearMax = (e) => {
+        this.setState({ModelYearMax:e.target.value});
     }
 
     handleCheckbox = (e, s) => {
@@ -117,10 +131,8 @@ class Product extends Component {
           checkedBox.splice(index, 1);
         }
         this.setState({checkedBoxes:checkedBox});
-
       }
-    
-    
+
 
     render(){
     return(
@@ -128,8 +140,8 @@ class Product extends Component {
             <div className={classes.outer}>
                     <img  className = {classes.logo} src={logo} width="10%" height="5%" />
                     <input className = {classes.input} type="text" placeholder="search..."/>
-                         Project
-                    <img className = {classes.head} src={images} width="4%" height="1.5%" />
+                    <span style={{marginTop:"20px"}}>Projects</span>
+                    <img style={{marginLeft:"10px",marginTop:"10px",marginRight:"10px"}} src={images} width="5%" height="3%" />
             </div>
 
             <div className={classes.inner}>
@@ -140,7 +152,8 @@ class Product extends Component {
                     <button className={classes.button2} >Product</button>  
                     <button className={classes.button2} >Project</button>  
                     <p className={classes.title}>  Product Type</p>
-                    <p className={classes.smallFont}>Model year: <input type="text"/> - <input type="text"/></p>
+                    <p className={classes.smallFont}>Model year: <input onChange={this.handleModelYearMin} value={this.state.ModelYearMin} style={{width: "23%", height:"1.2em"}} type="text"/> - 
+                    <input onChange={this.handleModelYearMax} value={this.state.ModelYearMax} style={{width: "23%", height:"1.2em"}} type="text"/></p>
                     <p className={classes.title}>Technical Specification</p>
                     
                     {this.state.filter.map((link, index)=>(
@@ -197,6 +210,7 @@ class Product extends Component {
                             return(
                             <Col xs={3} className={classes.column}>
                                 <div  key={link.manufacturer} id='cardItem' >
+                                    <span style={{color:"blue", fontSize:"11px", float:"right"}}>verified {link.modelYear}</span>
                                     <Link to={`/productSummary/${this.props.match.params.selection}/${this.props.match.params.searchVal}/${link.pid}`}>
                                     <img className={classes.fan} src={require(`./${link.manufacturer}.jpg`)} width="50%" height="50%"/>
                                     

@@ -17,7 +17,7 @@ class ProductSummary extends Component {
 
     componentDidMount() {
         console.log(localStorage);
-        let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra2siLCJleHAiOjE1NzA2NjY0MzMsImlhdCI6MTU3MDYzMDQzM30.Bv9Rd0VueeTxUEhbSxrQiq4KLKlSKKnEj46w37ukQ9LpFUIC7s29Jw9Q-jTfglMOj9bPg1sZBjF8Ma6T0n0eiA";
+        let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra2siLCJleHAiOjE1NzA3NTI0ODIsImlhdCI6MTU3MDcxNjQ4Mn0.pedJwWC9N2eM-8jHC9hS7T0HsE3KmkfJKV8bm-8FyxY1txDOhIhdl_FL-HGVVbLagqBWy4lOOnQ5jIAG8QGo0g";
         let pid = this.props.match.params.model;
         let url = `/user/getProd/${pid}`;
         axios({
@@ -40,20 +40,20 @@ class ProductSummary extends Component {
                  <div className={classes.outer}>
                     <img  className = {classes.logo} src={logo} width="10%" height="5%" />
                     <input className = {classes.input} type="text" placeholder="search..."/>
-                         Project
-                    <img className = {classes.head} src={images} width="4%" height="1.5%" />
+                    <span style={{marginTop:"20px"}}>Projects</span>
+                    <img style={{marginLeft:"10px",marginTop:"10px",marginRight:"10px"}} src={images} width="5%" height="3%" />
                  </div>
-                 <div style={{borderBottom:"1px solid rgb(235, 232, 232)", paddingLeft:"5px"}}>
+                 <div style={{ paddingLeft:"5px"}}>
                     <span style={{color: "rgb(35, 67, 148)", fontWeight:"bold", fontSize:"12px"}}>{this.props.match.params.selection} ></span>
                     <span style={{color: "rgb(35, 67, 148)", fontWeight:"bold", fontSize:"12px"}}>{this.props.match.params.searchVal} ></span>
                     <span style={{color: "grey", fontWeight:"bold", fontSize:"12px"}}>{this.state.data.model}</span>
                  </div>
-                 <div style={{borderBottom:"2px solid rgb(235, 232, 232)"}} className={classes.secondPart}>
+                 <div  className={classes.secondPart}>
                     {/* <img src={require(`./${this.state.data.manufacturer}.jpg`)} width="50%" height="50%"/> */}
                     <span className={classes.title}>{this.state.data.manufacturer} / {this.state.data.series} / {this.state.data.model}</span>
                     <span style={{color: "red",padding: "10px 5px 5px 20px",fontSize:"12px"}}>Past specifications: {this.state.data.firm} firm / {this.state.data.glob} global</span>
                  </div>
-                 <div style={{borderBottom:"2px solid rgb(235, 232, 232)"}} className={classes.thirdPart}>
+                 <div className={classes.thirdPart}>
                      <button>Product Summary</button>
                      <button>Product Details</button>
                      <button>Product Documentation</button>
@@ -62,7 +62,7 @@ class ProductSummary extends Component {
                  <div className={classes.fourthPart}>
                      <span className={classes.title}>Product Summary</span>
                  </div>
-                 <Container className={classes.container} style={{borderBottom:"1px solid grey"}}>
+                 <Container className={classes.container} >
                      <Row>
                      <Col>
                         <Row>
