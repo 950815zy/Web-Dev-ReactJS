@@ -31,19 +31,18 @@
     margin-left:10px;
 }
 
-
 .searchLabel{
     font-size: 0.9em;
     margin-left: 1em;
     margin-bottom: 0em;
 }
 .button1 {
-    background-color: grey;
+    background-color: rgb(148, 145, 145);
     border: none;
     color: white;
-    height: 19px;
-    width: 31%;
-    font-size: 0.7em;
+    height: 1.5em;
+    width: 38.2%;
+    font-size: 0.9em;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -56,9 +55,9 @@
 .button2 {
     background-color: white;
     border: none;
-    height: 18px;
-    width: 48.5%;
-    font-size: 0.7em;
+    height: 2em;
+    width: 50%;
+    font-size: 0.8em;
     color: black;
     /* padding: 0.2% 2%;
     margin-top: 0.3%; */
@@ -75,8 +74,8 @@
     padding: 0.1em 0em 0.4em 2%;
     background-color: rgb(240, 235, 235);
     height: 5%;
-    font-size: 0.8em;
-    width: 97%;
+    font-size: 0.9em;
+    width: 100%;
     margin: 0.08em 0em 0.1em 0em;
     font-weight: 600;
     text-align: 20%;
@@ -87,7 +86,7 @@
 .smallFont {
     color: #5e5b5b;
     text-align: left;
-    font-size: 0.8em;
+    font-size: 0.9em;
     vertical-align: middle;
     padding: 0.1em 0em 0.1em 2%;
     width: 98%;
@@ -102,15 +101,19 @@
 }
 
 .lefttable {
-    width: 11.9em;
+    width: 18em;
+    height: 33em;
     float: left;
     padding-bottom: 0.75%;
     border: 1px solid rgb(172, 170, 170);
 
 }
 
-.container {
-    height: 200px !important;
+.righttable {
+    height: 80% !important;
+    margin: 0 0 0 0 !important;
+    padding: 0 0 0 0 !important;
+    max-width: 100% !important;
 }
 .fan{
     margin-left:25%;
@@ -154,17 +157,19 @@
 
 .fourthPart span{
     font-size: 15px;
+    display: inline-block;
 }
 
 .column{
    border: 1px solid #bbb2b2;
+
    padding-right: 0 !important;
    padding-left: 0 !important;
 }
 
 .minvalue{
     float: left;
-    font-size: 10px;
+    font-size: 12px;
     margin-right: 5px;
     margin-left: 3px;
     margin-top: 0%;
@@ -178,7 +183,7 @@
     border: 1px solid #d3cfcf;
     text-align: center;
     float: right;
-    font-size: 10px;
+    font-size: 12px;
     margin-right: 5px;
     margin-left: 3px;
     margin-top: 0%;
@@ -195,3 +200,19 @@
     margin-top: 5px;
     width: 100%;
 }
+
+.dropdown {
+    height: 50px !important;
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.collapse {
+    margin-right: 20px;
+    margin-top:5px;
+    float:right;
+}
+
+
+

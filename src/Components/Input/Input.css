@@ -2,6 +2,8 @@
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
+    font-family: "Times New Roman", Times, serif;
+
     /* align-items: center; */
   }
   
@@ -10,15 +12,18 @@
     display: block;
     margin-bottom: 8px;
   }
-  
+
   .InputElement {
+    font-family: "Times New Roman", Times, serif;
+    border-radius: 5px;
+    margin: 10px 0 10px 13%;
     outline: none;
     border: 1px solid #ccc;
     background-color: white;
     font: inherit;
     padding: 4px 10px;
     display: block;
-    width: 100%;
+    width: 60%;
     box-sizing: border-box;
   }
   
@@ -36,5 +41,6 @@
     width: 100%;
     padding: 3px;
     margin: 5px;
+
   }
   

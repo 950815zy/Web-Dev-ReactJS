@@ -4,20 +4,27 @@ import Product from '../ProductList/product'
 import axios from 'axios';
 import classes from './productSummary.module.css'
 import logo from '../Auth/logo.png';
+import word from './word.jpg'
+import pdf from './pdf.jpeg'
+import dwg from './dwg.jpg'
+import rvt from './rvt.jpg'
 import images from '../ProductList/images.jpeg'
-// import fan from '../ProductList/fan.jpg'
 import searchPage from '../SearchPage/searchPage'
 import { Container, Row, Col, Table, tr, td } from 'react-bootstrap';
+import {logout} from '../../Store/actions/auth'
+import {Dropdown,DropdownButton,DropdownToggle} from 'react-bootstrap';
 
 class ProductSummary extends Component {
 
     state = {
-        data: []
-    }
+        data: [],
+        userId:''
+  
+    };
 
     componentDidMount() {
-        console.log(localStorage);
-        let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra2siLCJleHAiOjE1NzA3NTI0ODIsImlhdCI6MTU3MDcxNjQ4Mn0.pedJwWC9N2eM-8jHC9hS7T0HsE3KmkfJKV8bm-8FyxY1txDOhIhdl_FL-HGVVbLagqBWy4lOOnQ5jIAG8QGo0g";
+    this.setState({userId:localStorage.userId});
+        let token = "Bearer " + localStorage.token;
         let pid = this.props.match.params.model;
         let url = `/user/getProd/${pid}`;
         axios({
@@ -28,11 +35,15 @@ class ProductSummary extends Component {
                 Authorization: token
             }
         })
-        .then((response) => {this.setState({data: response.data});console.log(this.state.data)})
+        .then((response) => {console.log(response);this.setState({data: response.data});console.log(this.state.data)})
         .catch((error) => {
             console.log(error)});
     }
 
+    logOut = () => {
+        logout();
+        console.log(localStorage);
+    }
 
     render() {
         return (
@@ -40,8 +51,13 @@ class ProductSummary extends Component {
                  <div className={classes.outer}>
                     <img  className = {classes.logo} src={logo} width="10%" height="5%" />
                     <input className = {classes.input} type="text" placeholder="search..."/>
-                    <span style={{marginTop:"20px"}}>Projects</span>
-                    <img style={{marginLeft:"10px",marginTop:"10px",marginRight:"10px"}} src={images} width="5%" height="3%" />
+                    <span style={{marginTop:"20px",fontSize:"18px"}}>Hello, {this.state.userId}</span>
+                    <DropdownButton className={classes.drop} style={{width:"5%",height:"4%",marginLeft:"20px",marginTop:"10px",marginRight:"10px",padding:"0 0 0 0"}}
+                        title={<img src={images} style={{margin:"0 0 0 0",padding:"0 0 0 0"}} width="100%" height="100%" />}
+                                            size="sm"
+                    >
+                    <Dropdown.Item onClick={this.logOut}  style={{fontSize:"11px" , width:"5px"}}>Log Out</Dropdown.Item>
+                    </DropdownButton>   
                  </div>
                  <div style={{ paddingLeft:"5px"}}>
                     <span style={{color: "rgb(35, 67, 148)", fontWeight:"bold", fontSize:"12px"}}>{this.props.match.params.selection} ></span>
@@ -49,7 +65,7 @@ class ProductSummary extends Component {
                     <span style={{color: "grey", fontWeight:"bold", fontSize:"12px"}}>{this.state.data.model}</span>
                  </div>
                  <div  className={classes.secondPart}>
-                    {/* <img src={require(`./${this.state.data.manufacturer}.jpg`)} width="50%" height="50%"/> */}
+                    {/* <img src={require(`./${imageName}.jpg`)} width="50%" height="50%"/> */}
                     <span className={classes.title}>{this.state.data.manufacturer} / {this.state.data.series} / {this.state.data.model}</span>
                     <span style={{color: "red",padding: "10px 5px 5px 20px",fontSize:"12px"}}>Past specifications: {this.state.data.firm} firm / {this.state.data.glob} global</span>
                  </div>
@@ -68,9 +84,10 @@ class ProductSummary extends Component {
                         <Row>
                             <Table className={classes.table1}>
                                 <tr>
-                                <th>DESCRIPTION</th></tr>
-                                <tr>
-                                    <td>Manufacturer</td>
+                                <th>DESCRIPTION</th>
+                                <td></td></tr>
+                                <tr style={{border:"0px"}}>
+                                    <td >Manufacturer</td>
                                     <td>{this.state.data.manufacturer}</td>
                                 </tr>
                                 <tr>
@@ -108,7 +125,10 @@ class ProductSummary extends Component {
                      </Col>
                      <Col>
                             <Table>
-                                <th>Technical Specifications</th>
+                                <tr>
+                                    <th>Technical Specifications</th>
+                                    <td></td><td style={{backgroundColor: "white"}}></td><td></td><td style={{backgroundColor: "white"}}></td>
+                                </tr>
                                 <tr>
                                     <td>Airflow(CFM)</td>
                                     <td>{this.state.data.airflow}</td>
@@ -137,25 +157,29 @@ class ProductSummary extends Component {
                                 <tr>
                                     <td>Number of fan speeds</td>
                                     <td>{this.state.data.fanSpeed}</td>
+                                    <td style={{backgroundColor: "white"}}></td><td></td><td style={{backgroundColor: "white"}}></td>
                                 </tr>
                                 <tr>
                                     <td>Sound at max speed(dBA)</td>
                                     <td>{this.state.data.soundMaxSpeed}</td>
+                                    <td style={{backgroundColor: "white"}}></td><td></td><td style={{backgroundColor: "white"}}></td>
                                 </tr>
                                 <tr>
                                     <td>Fan sweep diameter(in)</td>
                                     <td>{this.state.data.fanSpeed}</td>
+                                    <td style={{backgroundColor: "white"}}></td><td></td><td style={{backgroundColor: "white"}}></td>
                                 </tr>
                                 <tr>
                                     <td>Height(in)</td>
                                     <td style={{backgroundColor: "rgb(235, 232, 232)"}}>Min</td>
-                                    <td style={{backgroundColor: "white"}}>{this.state.data.heightMin}</td>
+                                    <td style={{backgroundColor: "white",paddingRight: "5px"}}>{this.state.data.heightMin}</td>
                                     <td style={{backgroundColor: "rgb(235, 232, 232)"}}>Max</td>
                                     <td style={{backgroundColor: "white"}}>{this.state.data.heightMax}</td>
                                 </tr>
                                 <tr>
                                     <td>Weight(lbs)</td>
                                     <td>{this.state.data.weight}</td>
+                                    <td style={{backgroundColor: "white"}}></td><td></td><td style={{backgroundColor: "white"}}></td>
                                 </tr>
                             </Table>
                         
@@ -167,6 +191,34 @@ class ProductSummary extends Component {
                             <th>SERIES INFOMATION</th>
                             <tr style={{fontSize:"13px", backgroundColor: "rgb(235, 232, 232)"}}>Airfoils - Moso bamboo - 60" diameter</tr>
                             <tr style={{fontSize:"13px"}}>Airfoils Finishes - Caramel Bamboo or Cocoa Bamboo</tr>
+                            <tr style={{fontSize:"13px", backgroundColor: "rgb(235, 232, 232)"}}>Airfoils - Moso bamboo - 60" diameter</tr>
+                            <tr style={{fontSize:"13px"}}>Airfoils Finishes - Caramel Bamboo or Cocoa Bamboo</tr>
+                            <tr style={{fontSize:"13px", backgroundColor: "rgb(235, 232, 232)"}}>Airfoils - Moso bamboo - 60" diameter</tr>
+                            <tr style={{fontSize:"13px"}}>Airfoils Finishes - Caramel Bamboo or Cocoa Bamboo</tr>
+                            <tr style={{fontSize:"13px", backgroundColor: "rgb(235, 232, 232)"}}>Airfoils - Moso bamboo - 60" diameter</tr>
+                            <tr style={{fontSize:"13px"}}>Airfoils Finishes - Caramel Bamboo or Cocoa Bamboo</tr>
+                            <tr style={{fontSize:"13px", backgroundColor: "rgb(235, 232, 232)"}}>Airfoils - Moso bamboo - 60" diameter</tr>
+                            <tr style={{fontSize:"13px"}}>Airfoils Finishes - Caramel Bamboo or Cocoa Bamboo</tr>
+                         </Table>
+                     </Row>
+
+                     <Row>
+                        <span className={classes.title2}>Product Infomation</span>
+                         <Table>
+                            <img  className = {classes.logo} style={{marginRight: "1em"}} src={word} width="40px" height="40px" />
+                             <span>CSI - Three Part Specifications(DOC)</span>
+                             <img  className = {classes.logo} style={{marginRight: "1em",marginLeft:"20%"}} src={rvt} width="40px" height="40px" />
+                             <span>BIM(RVT)</span> <br/><br/>
+                             <img  className = {classes.logo} style={{marginRight: "1em"}} src={pdf} width="40px" height="40px" />
+                             <span>Submittal(PDF)</span>
+                             <img  className = {classes.logo} style={{marginRight: "1em",marginLeft:"34%"}} src={dwg} width="40px" height="40px" />
+                             <span>Plan Views(DWG))</span><br/><br/>
+                             <img  className = {classes.logo} style={{marginRight: "1em"}} src={pdf} width="40px" height="40px" />
+                             <span>Control Options(PDF)</span>
+                             <img  className = {classes.logo} style={{marginRight: "1em",marginLeft:"30%"}} src={dwg} width="40px" height="40px" />
+                             <span>Elevation Views(DWG))</span>
+
+
                          </Table>
                      </Row>
                  </Container>

@@ -13,7 +13,7 @@ export const authSuccess = (token, userId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
-    userId: userId
+    userId: userId,
   };
 };
 
@@ -51,17 +51,17 @@ export const auth = (username, password, isSignup) => {
     axios
       .post('/authenticate', authData)
       .then(response => {
-        const expirationDate = new Date(
-          new Date().getTime() + Number(response.data.expirationDate)
-        );
-        console.log(response);
+        // const expirationDate = new Date(
+        //   new Date().getTime() + Number(response.data.expirationDate)
+        // );
+        const expirationDate = new Date(response.data.expirationDate).getTime();
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('expirationDate', expirationDate);
         localStorage.setItem('userId', response.data.userDetails.username);
         dispatch(
           authSuccess(response.data.token, response.data.userDetails.username)
         );
-        dispatch(checkAuthTimeout(Number(response.data.expirationDate)));
+        dispatch(checkAuthTimeout(new Date(response.data.expirationDate).getTime() - new Date().getTime()));
       })
       .catch(err => {
         dispatch(authFail(err.message));
@@ -88,7 +88,7 @@ export const authCheckState = () => {
         dispatch(logout());
       } else {
         const userId = localStorage.getItem('userId');
-        dispatch(authSuccess(token, userId));
+        dispatch(authSuccess(token, userId,expirationDate));
         dispatch(
           checkAuthTimeout(expirationDate.getTime() - new Date().getTime())
         );

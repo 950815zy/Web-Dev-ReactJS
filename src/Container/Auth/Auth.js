@@ -6,7 +6,7 @@ import Button from '../../Components/Button/Button';
 import Spinner from '../../Components/Spinner/Spinner';
 import classes from './Auth.module.css';
 import logo from './logo.png';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FaRegUser } from "react-icons/fa";
 
 import { IoIosReturnRight } from 'react-icons/io';
@@ -18,7 +18,7 @@ class Auth extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'username',
-                    placeholder: 'Username'
+                    placeholder: 'Username or Email'
                 },
                 value: '',
                 validation: {
@@ -30,7 +30,7 @@ class Auth extends Component {
             },
             password: {
                 elementType: 'input',
-                elementCofig: {
+                elementConfig: {
                     type: 'password',
                     placeholder: 'Password'
                 },
@@ -41,9 +41,11 @@ class Auth extends Component {
                 },
                 valid: false,
                 touched: false
-            }
+            },
         },
-        isSignup: true
+        isSignup: true,
+        directToSignup : false
+        
     }
 
     checkValidity(value, rules) {
@@ -86,23 +88,30 @@ class Auth extends Component {
                   touched: true
               }
           };
-          console.log(updatedControls);
-          console.log(this.state);
           this.setState( { controls: updatedControls } );
     }   
 
     submitHandler = ( event ) => {
         event.preventDefault();
+        
         this.props.onAuth( this.state.controls.username.value, this.state.controls.password.value, this.state.isSignup );
     }
 
-    switchAuthModeHandler = () => {
-        this.setState(prevState => {
-            return {isSignup: !prevState.isSignup};
-        });
+    // switchAuthModeHandler = () => {
+    //     this.setState(prevState => {
+    //         return {isSignup: !prevState.isSignup};
+    //     });
+    // }
+
+    swithSignup = () => {
+        this.setState({directToSignup: true})
     }
 
+
     render () {
+        if (this.state.directToSignup) {
+            return (<Redirect push to="/signup" />)
+        }
         const formElementsArray = [];
         for ( let key in this.state.controls ) {
             formElementsArray.push( {
@@ -135,30 +144,26 @@ class Auth extends Component {
             );
         }
 
-        // let authRedirect = null;
-        // if (this.props.isAuthenticated) {
-        //     authRedirect = <Redirect to={this.props.authRedirectPath}/>
-        // }
+        let authRedirect = null;
+        if (this.props.isAuthenticated) {
+            authRedirect = <Redirect to={this.props.authRedirectPath}/>
+        }
 
         return (
             <html style={{backgroundImage:"linear-gradient(#7bb7f8ee, #ffffff)"}}>
             <div className={classes.Auth}>
-            <span style={{float: "right", border:"0px",marginRight: "10%", fontSize:"16px", fondWeight:"600", color: "grey"}}
-                onClick={this.switchAuthModeHandler}
-                btnType="Danger">{this.state.isSignup ? 'Sign in' : 'Sign up'}</span>
-                {/* {authRedirect} */}
+            <span style={{float: "right", border:"0px",marginRight: "20%", paddingTop:"5%",fontSize:"16px", fontWeight:"bolder", color: "rgb(95 93 93)"}}
+                onClick={this.swithSignup}
+                btnType="Danger">Sign up</span>
+                {authRedirect}
                 {errorMessage}
                 <img className={classes.logo} src={logo} width="25%" height="18%"/>
-                <p >Build Product Selection Platform</p>
+                <p style={{fontSize:"18px"}}>Build Product Selection Platform</p>
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <div>
-                        <Link to ="search">
-                        <button style={{ float: "right"}} btnType="Success">Log In</button></Link>
-                        
-                    </div>
-
-                    
+                        <button style={{ fontSize:"11px", float: "right",borderRadius:"5px",color:"white",fontWeight:"bold", padding:"5px 20px 5px 20px",backgroundColor: "rgb(38, 86, 156)", marginRight: "27%"}} btnType="Success">{this.state.isSignup ? 'Submit' : 'Log in'}</button>                     
+                    </div>               
                 </form> <br/>
             </div>
             </html>
@@ -172,7 +177,7 @@ const mapStateToProps = state => {
       loading: state.auth.loading,
       error: state.auth.error,
       isAuthenticated: state.auth.token !== null,
-      authRedirectPath: state.authRedirectPath
+      authRedirectPath: state.auth.authRedirectPath
     };
   };
   

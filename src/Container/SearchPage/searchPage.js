@@ -6,13 +6,22 @@ import { Link } from 'react-router-dom';
 import Product from '../ProductList/product';
 import images from '../ProductList/images.jpeg'
 import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import * as actions from '../../Store/actions/index';
+import {logout} from '../../Store/actions/auth'
+import {Dropdown,DropdownButton,DropdownToggle} from 'react-bootstrap';
 
 class searchPage extends Component {
     state = {
         searchValue : '',
         selection: '',
-        redirect: false
+        redirect: false,
+        userId:''
+  
     };
+
+    componentDidMount() {
+        this.setState({userId:localStorage.userId});}
 
     handleChange = (e) => {
         this.setState({searchValue : e.target.value});
@@ -32,6 +41,11 @@ class searchPage extends Component {
 
         }
     }
+
+    logOut = () => {
+        logout();
+        console.log(localStorage);
+    }
         
     render(){
         if (this.state.redirect) {
@@ -40,9 +54,14 @@ class searchPage extends Component {
         let value = this.state.searchValue;
         return(
             <html style={{backgroundImage:"linear-gradient(#7bb7f8ee, #ffffff)"}}>
-            <div style={{float:"right",width: "15%", display: "flex"}}>
-                    <span style={{marginTop:"10%"}}>Projects</span>
-                    <img style={{marginLeft:"10px",marginRight:"20px"}} src={images} width="25%" height="20%" />
+            <div style={{float:"right",width: "20%", display: "flex"}}>
+                <span  style={{marginTop:"2em",fontSize:"18px"}}>Hello, {this.state.userId}</span>
+                <DropdownButton className={classes.drop} style={{width:"25%",height:"20%",marginLeft:"20px",marginTop:"10px",marginRight:"10px",padding:"0 0 0 0"}}
+                        title={<img src={images} style={{margin:"0 0 0 0",padding:"0 0 0 0"}} width="100%" height="100%" />}
+                                            size="sm"
+                    >
+                    <Dropdown.Item onClick={this.logOut}  style={{fontSize:"11px" , width:"5px"}}>Log Out</Dropdown.Item>
+                    </DropdownButton>   
             </div>
             <div className={classes.search} >
                 <img src={logo} />

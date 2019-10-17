@@ -34,7 +34,7 @@
 .index {
     font-size: 12px;
     padding: 0 0 0 0 !important;
-    margin: 0 0 0 0 !important;
+    margin: 1.2em 0 0 0 !important;
 }
 
 .index tr{
@@ -59,7 +59,7 @@ td {
 
     float: inherit;
     padding: 0% 0% 0% 0%;
-    margin: 0 25% 0 25% !important;
+    margin: 10% 25% 0 25% !important;
     
 }
 
@@ -69,10 +69,11 @@ th {
 
 tr{
     height: 10px !important;
-    padding: 10px 5px 10px 20px !important;
-    font-size: 15px !important;
+    font-size: 16px !important;
     font-family: Arial, Helvetica, sans-serif !important;
-
+    border-bottom: 1px solid rgb(189, 183, 183) !important;
+    border-top: 1px solid rgb(201, 191, 191) !important;
+    border-collapse: inherit;
 }
 
 .content {

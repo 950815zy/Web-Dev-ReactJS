@@ -3,9 +3,10 @@ import axios from 'axios';
 import Input from '../../Components/Input/Input';
 import Button from '../../Components/Button/Button';
 import Spinner from '../../Components/Spinner/Spinner';
-import classes from './Signup.css';
-import logo from './logo.png';
-import { Redirect } from 'react-router-dom';
+import classes from './Signup.module.css';
+import logo from '../Auth/logo.png';
+import { Redirect, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Signup extends Component {
     state = {
@@ -14,7 +15,7 @@ class Signup extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'username',
-                    placeholder: 'username'
+                    placeholder: 'Username or Email'
                 },
                 value:'',
                 validation: {
@@ -28,7 +29,21 @@ class Signup extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    placeholder: 'password'
+                    placeholder: 'Password'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 6
+                },
+                valid: false,
+                touched: false
+            },
+            confirmedpassword: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'password',
+                    placeholder: 'Confirmed Password'
                 },
                 value: '',
                 validation: {
@@ -42,7 +57,8 @@ class Signup extends Component {
         formIsValid: false,
         errorMessage: '',
         successMessage: '',
-        redirect: false
+        redirect: false,
+        errorMes: false
     };
 
     checkValidation(value, rules) {
@@ -54,8 +70,9 @@ class Signup extends Component {
             isValid = value.trim() !== '' && isValid;
         }
         if(rules.minLength) {
-            isValid = value.lengh >= rules.minLength && isValid;
+            isValid = value.length >= rules.minLength && isValid;
         }
+
         return isValid;
     }
 
@@ -81,27 +98,34 @@ class Signup extends Component {
     };
 
     submitHandler = event => {
+        event.preventDefault();
         const signupData = {
             username : this.state.controls.username.value,
             password : this.state.controls.password.value
         };
-        let url = '/register';
-        axios
-        .post(url, signupData)
-        .then(response => {
-            this.setState({
-                redirect: true
-            });
-        })
-        .catch(err => {
-            this.setState({
-                errorMessage: err.message,
-                redirect: false
-            });
-        });
-    };
+
+        const  password = this.state.controls.password.value
+        const  confirmedpassword = this.state.controls.confirmedpassword.value
+        if (password == confirmedpassword) {
+            let url = '/register';
+            axios
+            .post(url, signupData)
+            this.props.history.push("/auth")
+        };
+
+        if(this.state.controls.username.value != this.state.controls.confirmedpassword.value) {
+            this.setState({errorMes:true})
+        }
+    }    
+
+    swithLogIn =() => {
+        this.setState({redirect:true})
+    }
 
     render() {
+        if(this.state.redirect){
+            return (<Redirect push to="/auth" />)
+        }
         let formElementArray = [];
         for (let key in this.state.controls) {
             formElementArray.push({
@@ -138,24 +162,27 @@ class Signup extends Component {
         if (this.state.redirect) {
         authRedirect = <Redirect to="/" />;
         }
+
     return (
-    <html style={{backgroundImage:"linear-gradient(#7bb7f8ee, #ffffff)"}}>
-      <div className={classes.signup}>
-        {/* {successMessage} */}
-        {errorMessage}
-        {authRedirect}
-        <img className={classes.logo} src={logo} width="20%" height="15%"/>
-        <p >Build Product Selection Platform</p>
-        <form onSubmit={this.submitHandler}>
-          {form}
-          <Button btnType="Success">
-            Register
-          </Button>
-        </form>
-      </div>
-      </html>
+        <html style={{backgroundImage:"linear-gradient(#7bb7f8ee, #ffffff)"}}>
+        <div className={classes.Auth}>
+        <span style={{float: "right", border:"0px",marginRight: "20%", paddingTop:"5%",fontSize:"16px", fontWeight:"bolder", color: "rgb(95 93 93)"}}
+                onClick={this.swithLogIn}
+                btnType="Danger">Back to Log In</span>
+            {errorMessage}
+            <img className={classes.logo} src={logo} width="25%" height="18%"/>
+            <p style={{fontSize:"18px"}}>Build Product Selection Platform</p>
+            <form onSubmit={this.submitHandler}>
+                {form}
+                    <button style={{ fontSize:"13px", float: "right",borderRadius:"5px",color:"white",fontWeight:"bold", padding:"5px 20px 5px 20px",backgroundColor: "rgb(38, 86, 156)", marginRight: "27%"}} btnType="Success">Register</button>                     
+            </form> <br/>
+            {this.state.errorMes ? <span style={{fontSize:"14px",marginLeft:"30%",color:"red"}}>Invalid username or password</span> : null}
+
+        </div>
+        </html>
+
     );
   }
 }
 
-export default Signup;
+export default withRouter(Signup);

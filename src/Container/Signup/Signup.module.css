@@ -1,7 +1,6 @@
 .Auth {
   margin: auto;
   text-align: center;
-  padding-top: 0;
   padding-bottom: 100px;
   box-sizing: border-box;
   }
@@ -25,9 +24,3 @@ img {
   margin-left: 35%;
   margin-right: 40%;
   }
-
-
-.signup {
-  margin-right: 5px;
-
-}
